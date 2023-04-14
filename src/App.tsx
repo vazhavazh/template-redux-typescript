@@ -2,16 +2,22 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import ToDoList from './features/ToDoList/ToDoList'
 
-function App() {
+
+const App: React.FC = () => {
+
+  const toDos = [{id: '1', title: 'text'}]
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
-        <p>
+        <h2>.tsx</h2>
+        <ToDoList toDos={toDos} />
+        {/* <p>
           Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        </p> */}
         {/* <span> */}
           {/* <span>Learn </span>
           <a
