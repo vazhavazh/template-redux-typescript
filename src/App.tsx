@@ -1,20 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import ToDoList from './features/ToDoList/ToDoList'
+import {ToDoList} from './features/ToDoList/ToDoList'
+import {AddToDo} from './features/ToDoList/AddToDo'
 
+import {IItem} from './features/types/todo'
 
 const App: React.FC = () => {
+  const [toDos, setToDos] = useState<IItem[]>([]);
 
-  const toDos = [{id: '1', title: 'text'}]
+  const toDoAddHandler = (toDo: IItem) => {
+    setToDos((prevToDos) => {
+      return [
+        ...prevToDos,
+        {
+          id: Math.random().toString(),
+          title: toDo.title
+        }
+      ]
+    })
+  }
+
+  const toDoDeleteHandler = (id: string) => {
+    setToDos((prevToDos) => {
+      return prevToDos.filter((el) => {
+        return el.id !== id;
+      })
+    })
+  }
+ 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <h2>.tsx</h2>
-        <ToDoList toDos={toDos} />
+        <ToDoList toDos={toDos} onDeleteToDo={toDoDeleteHandler} />
+        <AddToDo onAddToDo={toDoAddHandler} />
         {/* <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p> */}
